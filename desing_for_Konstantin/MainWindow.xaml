@@ -3,71 +3,77 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2"
         xmlns:local="clr-namespace:desing_for_Konstantin"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
 
     <Grid>
         
+        
+        
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <DataGrid x:Name="table" LoadingRow="DataGrid_LoadingRow">
+        <DataGrid x:Name="table" LoadingRow="DataGrid_LoadingRow" FontWeight="Bold" FontSize="15" SelectionMode="Single" SelectionUnit="FullRow">
+            <DataGrid.CellStyle>
+                <Style TargetType="DataGridCell">
+                    <Style.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="BorderBrush" Value="Black" />
+                            <Setter Property="BorderThickness" Value="0,1,0,1" />
+                        </Trigger>
+                    </Style.Triggers>
+
+                </Style>
+            </DataGrid.CellStyle>
             <DataGrid.ColumnHeaderStyle>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
-                    <Setter Property="FontWeight" Value="Bold" />
                     <Setter Property="Background" Value="#beb9b4"/>
                     
                 </Style>
             </DataGrid.ColumnHeaderStyle>
             
-            <DataGrid.CellStyle>
-
-                <Style TargetType="Control">
-                    <Setter Property="FontSize" Value="15" />
-                    <Setter Property="FontWeight" Value="Bold" />
-                    
+            <DataGrid.RowStyle>
                 
+                <Style TargetType="{x:Type DataGridRow}">
+                    <Style.Resources>
+                        <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Gray" Opacity="0.4" />
+                    </Style.Resources>
                     <Style.Triggers>
+                        
                         <DataTrigger Binding="{Binding Path=press}" Value="0" >
                             <Setter Property="Background" Value="red" />
                             <Setter Property="Foreground" Value="White" />
-                            <Setter Property="BorderBrush" Value="Red"/>
+                            
                         </DataTrigger>
                         <DataTrigger Binding="{Binding Path=press}" Value="1">
                             <Setter Property="Background" Value="#fcd71c" />
                             <Setter Property="Foreground" Value="Black" />
-                            <Setter Property="BorderBrush" Value="#fcd71c"/>
+                            
                         </DataTrigger>
                         <DataTrigger Binding="{Binding Path=press}" Value="2">
                             <Setter Property="Background" Value="Black" />
                             <Setter Property="Foreground" Value="#fcd71c" />
-                            <Setter Property="BorderBrush" Value="Black"/>
+                            
                         </DataTrigger>
+                        
+                        
                     </Style.Triggers>
                     
+                        
                 </Style>
                 
-            </DataGrid.CellStyle>
-
-            
+            </DataGrid.RowStyle>
             
             <DataGrid.Columns>
 
                 <DataGridTextColumn Binding="{Binding date, StringFormat=\{0:dd.MM.yy\}}" Header="Дата" Width="*" />
-
                 <DataGridTextColumn Binding="{Binding seconds}" Header="Время" Width="*" />
                 <DataGridTextColumn Binding="{Binding pr}" Header="Пр" Width="*" />
-
-
                 <DataGridTextColumn Binding="{Binding source}" Header="Источник" Width="*" />
-
-
-
                 <DataGridTextColumn Binding="{Binding events}" Header="Событие" Width="*"/>
-
-               
                 <DataGridTemplateColumn Header="Статус" Width="*" IsReadOnly="True">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
@@ -75,26 +81,12 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-
                 <DataGridTextColumn Binding="{Binding info}" Header="Инфо" Width="*" />
-
-
-
                 <DataGridTextColumn Binding="{Binding comm}" Header="Комментарий" Width="*"/>
-                
-                
                 <DataGridTextColumn Binding="{Binding recept_name}" Header="Имя рецепта" Width="*"/>
-                
-                
                 <DataGridTextColumn Binding="{Binding place}" Header="Область" Width="*"/>
-                
-                
                 <DataGridTextColumn Binding="{Binding loop_info}" Header="Loop info" Width="*"/>
-                
-                
                 <DataGridTextColumn Binding="{Binding type}" Header="Тип" Width="*"/>
-                
-                
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
